@@ -1,8 +1,9 @@
 "use client";
 
-import LoginInput from "./loginInput";
+import LoginInput from "../input";
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { Button } from "../button";
+import Link from "next/link";
 
 export function LoginBox() {
     return (
@@ -32,7 +33,9 @@ export function LoginBox() {
           />
           <div className="mb-7 mt-2 w-full pl-10 text-[#8d8e8e]">
             <label>Não tem uma conta ? </label>
-              <a className="underline">Cadastre-se</a>
+            <Link href={"/register"}>
+              <text className="underline">Cadastre-se</text>
+            </Link>
             
           </div>
           <br />
