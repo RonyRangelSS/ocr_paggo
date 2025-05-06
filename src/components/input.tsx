@@ -9,9 +9,11 @@ export default function Input(props: {icon: IconType, placeholder: string, style
         </span>
         <div className="flex w-full h-full">
           <input  
-            type="text" 
+            type={props.type} 
             placeholder={props.placeholder}
             className="flex w-full h-full rounded-xl outline-none pb-[2px] text-gray-700"
+            onChange={props.onChange}
+            value={props.value}
           />
         </div>
       </div>

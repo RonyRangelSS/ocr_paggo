@@ -2,7 +2,7 @@ import { FileUpload } from "@/components/home/fileUpload";
 
 export default function Home() {
     return (
-        <div className="flex flex-col items-center h-screen w-screen fixed bg-gray-900">
+        <div className="flex flex-col items-center h-screen w-screen bg-gray-900 overflow-x-hidden">
             <div className="flex flex-col items-center mt-5">
                 <h1 className="text-5xl font-bold">
                     OCR Paggo

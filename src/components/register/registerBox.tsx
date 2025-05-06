@@ -4,40 +4,25 @@ import Input from "@/components/input";
 import { useState } from "react";
 import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 import { Button } from "../button";
+import { handleRegister } from "@/util/authService";
+import { useRouter } from "next/navigation";
 
 
 export default function RegisterBox() {
 
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [message, setMessage] = useState("");
+  const router = useRouter();
+  const [usuario, setUsuario] = useState({ nome: "", email: "", senha: "" });
+  const [message, setMessage] = useState<string>("");
 
-  const handleRegister = async () => {
-    if (!nome || !senha || !email)
-      return setMessage("Os campos não podem ser nulos");
+  const handleRegisterClick = async () => {
+    const { nome, email, senha } = usuario;
 
-    const response = await fetch(
-      "http://localhost:8081/api/usuarios/cadastro",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nome: nome,
-          email: email,
-          senha: senha,
-        }),
-      },
-    );
-
-    if (response.ok) {
-      setMessage("Cadastro realizado com sucesso!");
-    } else if (response.status === 409) {
-      setMessage("Este email já está registrado.");
-    } else {
-      setMessage("Erro no cadastro. Tente novamente.");
+    try {
+      const result = await handleRegister(nome, email, senha);
+      setMessage(result);
+      router.push("/login");
+    } catch (error: any) {
+      setMessage(error.message);
     }
   };
 
@@ -52,27 +37,27 @@ export default function RegisterBox() {
           placeholder="Digite seu nome..."
           style={{ color: "#8B96C2" }}
           type="text"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
+          value={usuario.nome}
+          onChange={(e) => setUsuario({ ...usuario, nome: e.target.value })}
         />
         <Input
           icon={FaEnvelope}
           placeholder="Digite seu email..."
           type="email"
           style={{ color: "#8B96C2" }}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={usuario.email}
+          onChange={(e) => setUsuario({ ...usuario, email: e.target.value })}
         />
         <Input
           icon={FaLock}
           placeholder="Digite sua senha..."
           style={{ color: "#8B96C2" }}
           type="password"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
+          value={usuario.senha}
+          onChange={(e) => setUsuario({ ...usuario, senha: e.target.value })}
         />
       </div>
-      <Button text="Cadastrar" function={() => alert("hi")} />
+      <Button text="Cadastrar" function={handleRegisterClick} />
       {message && <div className="mt-4 text-red-500">{message}</div>}
     </div>
   );
