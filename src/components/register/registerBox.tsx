@@ -61,7 +61,7 @@ export default function RegisterBox() {
         />
       </div>
       <Button text="Cadastrar" function={handleRegisterClick} />
-      {message && <div className="mt-4 text-red-500">{message}</div>}
+      {message && <div className="mt-4 text-black">{message}</div>}
     </div>
   );
 }

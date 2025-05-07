@@ -37,7 +37,7 @@ export function LoginBox() {
         console.log("Login bem-sucedido:", result);
         router.push("/home");
       } else {
-        setMessage("Ocorreu um erro. Tente novamente."); 
+        setMessage("Email não cadastrado ou senha incorreta."); 
       }
     } catch (error) {
       setLoading(false);
