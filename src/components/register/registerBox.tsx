@@ -16,6 +16,9 @@ export default function RegisterBox() {
 
   const handleRegisterClick = async () => {
     const { nome, email, senha } = usuario;
+    if (!nome || !email || !senha) return setMessage("Os campos não podem ser nulos");
+    if (senha.length < 6) return setMessage("A senha deve ter no mínimo 6 caracteres");
+    if (!email.includes("@")) return setMessage("Email inválido");
 
     try {
       const result = await handleRegister(nome, email, senha);
